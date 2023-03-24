@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_socketio import SocketIO
-from .main import main
+
 
 socketio = SocketIO()
 
@@ -12,6 +12,6 @@ def create_app(debug=False):
    socketio.init_app(app,async_mode=None, logger=True, engineio_logger=True)
    
    
-   
+   from .main import main
    app.register_blueprint(main)
    return app

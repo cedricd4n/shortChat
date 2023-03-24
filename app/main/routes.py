@@ -5,7 +5,7 @@ from .. import socketio
 
 @main.route('/')
 def sessions():
-    return render_template('session.html')
+    return render_template('main/session.html')
 
 
 def messageReceived(methods=['GET', 'POST']):
