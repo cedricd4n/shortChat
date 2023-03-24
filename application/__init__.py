@@ -4,7 +4,7 @@ from flask_socketio import SocketIO
 
 socketio = SocketIO()
 
-def create_app():
+def create_app(self):
     
    app = Flask(__name__)
    app.debug = debug 
