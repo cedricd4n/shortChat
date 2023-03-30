@@ -10,7 +10,13 @@ def sessions():
 
 def messageReceived(methods=['GET', 'POST']):
     print('message was received!!!')
-
+    
+    
+@main.route('/data', methods=['GET'])
+def get_data():
+    # Your code to fetch data goes here
+    data = [{'id': 1, 'name': 'John'}, {'id': 2, 'name': 'Jane'}]
+    return jsonify(data)
 
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
