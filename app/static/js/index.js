@@ -19,35 +19,28 @@ const app = new Vue({
     delimiters: ['[[', ']]'],
     data: {
       numbers: [],
-      // votre tableau de nombres ici
+      showWait:false, // votre tableau de nombres ici
     },
-    mounted() {
-        this.fetchData()
-        setInterval(() => {
-          this.fetchData()
-        }, 60000) // 15 minutes = 900000 milliseconds
+    created() {
+        this.fetchValues();
+        setInterval(this.fetchValues, 15 * 60 * 1000); // appel toutes les 15 min
     },
     methods: {
-       async fetchData() {
-          // Fetch data from your server and update the 'data' property
-          // This is just an example, replace it with your actual API call
-            const currentTime = new Date().getTime()
-            let fetchDataPromise = null
-            
-            
-    
-            if (currentTime % 30000 === 0) { 
-                console.log("display data")
-            } 
-            else if (currentTime % 60000 === 0) { // Every 15 minutes
-                const gResponse = await fetch(apiEndpoint + 'greeting');
-                const gObject = await gResponse.json()
-                this.numbers = gObject.greeting;
-            }
-         
-        }
-      }
-    
+      async  fetchValues() {
+        const gResponse = await fetch(apiEndpoint + 'greeting');
+        const gObject = await gResponse.json()
+        this.numbers = gObject.greeting;
+        this.showWait = false;
+
+        this.showWait = true;
+        setTimeout(() => {
+            this.showWait = false;
+        }, 60 * 1000); 
+
+      },
+      
+
+    },
 
 
 
@@ -56,15 +49,15 @@ const app = new Vue({
     //  const gResponse = await fetch(apiEndpoint + 'greeting');
     //  const gObject = await gResponse.json()
     //  this.numbers = gObject.greeting;
-        // setTimeout(() => {
-        // this.numbers = ['Veillez patienter...']; // affichez "Veillez patienter..." après 15 minutes
-        // setTimeout  (async() => {
-        //     // récupérez à nouveau vos données après 1 minute
-        // const gResponse = await fetch(apiEndpoint + 'greeting');
-        // const gObject = await gResponse.json()
-        // this.numbers = gObject.greeting;
-        // }, 60000);
-        // }, 60000);
+    //     setTimeout(() => {
+    //     this.numbers = ['Veillez patienter...']; // affichez "Veillez patienter..." après 15 minutes
+    //     setTimeout  (async() => {
+    //         // récupérez à nouveau vos données après 1 minute
+    //     const gResponse = await fetch(apiEndpoint + 'greeting');
+    //     const gObject = await gResponse.json()
+    //     this.numbers = gObject.greeting;
+    //     }, 60000);
+    //     }, 60000);
        
     // }
 });
