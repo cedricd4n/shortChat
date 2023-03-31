@@ -18,6 +18,8 @@ def get_data():
     data = [{'id': 1, 'name': 'John'}, {'id': 2, 'name': 'Jane'}]
     return jsonify(data)
 
+
+    
 @socketio.on('my event')
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     print('received my event: ' + str(json))
